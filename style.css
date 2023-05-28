@@ -1,12 +1,17 @@
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 #display {
-    box-sizing: border-box;
-    height: 64px;
     display: flex;
     flex-direction: column;
 }
 #upper {
-    box-sizing: border-box;
+
 }
 #lower {
-    box-sizing: border-box;
+
+    margin-bottom: 8px;
 }
+

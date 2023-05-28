@@ -14,7 +14,26 @@ BUTTONS BEHAVIVOR:
         set new operator,
         update display with new operator
             *should only update the operator on display and internal
+            *not calculate anything
     else if num1
         then set operator 
         push to display1
         clear display2
+            *update the equation with an operator for the first time
+            
+-digit buttons
+    if num1/operator/num2
+    	Add number to num2
+    	update display2 with num2
+    else if num1/operator/!num2
+    	Add number to num2
+    	update display2 with num2
+    else if num1/!operator/!num2
+    	keep adding number to num1
+    	update display2 with num1
+    else if !num1/!operator/!num2
+    	add number to num1
+    	update display2 with num1
+    	
+MIGHT HAVE TO ADD A secondary tracker for edge case
+    	
