@@ -37,17 +37,17 @@ const display2 = document.getElementById('lower');
 //-----digit buttons-----//////////////////////////////
 const digitButtons = document.querySelectorAll('.digit');
 digitButtons.forEach(button => button.addEventListener('click', event => {
-    setDecider(event, operator, number1, lastButton); //decide which sets the number should go into.
+    setDecider(event, operator.value, number1, number2, lastButton); //decide which sets the number should go into.
 }));
 
-function setDecider(e, op, num1) {
+function setDecider(e, op, num1, num2) {
 
     const val = e.target.textContent; //assign content to a local variable
     let str = '';
-    if (num1.value !== '' && op.value !== '') {
-        str = addToSet(number2, val);
-    } else if (op.value === '') { 
-        str = addToSet(number1, val);
+    if (num1.value !== '' && op !== '') {
+        str = addToSet(num2, val);
+    } else if (op === '') { 
+        str = addToSet(num1, val);
     }
     
     updateDisplay(display2, str); //reset display
