@@ -30,30 +30,23 @@ function operate(num1, operator, num2) {
 //#region variables declaration
 let number1 = {value: ''};    //hold a string of number
 let number2 = {value: ''};    //hold a string of number
+let numbers = [
+    {value: 'fggf'},  
+    {value: '3f3f'},
+];
 let operator = {value: ''};   //hold a string of an operator
 let result = '';     //hold a string of result, can be use for recall
 let lastButton = ''; //hold a string of the last button pressed
+let currentInput = {value: '1'}; //1v2 track which number set is being input
 const display1 = document.getElementById('upper');
 const display2 = document.getElementById('lower');
 //#endregion
-
-//#region digits
-//-----digit buttons-----//////////////////////////////
-const digitButtons = document.querySelectorAll('.digit');
-digitButtons.forEach(button => button.addEventListener('click', event => {
-    const num = event.target.textContent;
-    setDecider(num, operator.value, number1, number2); //decide which sets the number should go into.
-}));
+console.log(numbers[currentInput.value].value);
+//#region keyboard
 window.addEventListener('keydown', event => {
-    //get key/code
-    //if key is digit
-    //run setDecider
-    //if key is operator
-    //if key is other special
-
     const key = event.key;
-    const reg = /^([-+/*]\d+(.\d+)?)*/;
-    const code = event.code;
+    //const reg = /^([-+/*]\d+(.\d+)?)*/;
+    //const code = event.code;
     
     if (key.match(/[0-9]/)) {
         setDecider(key, operator.value, number1, number2);
@@ -66,6 +59,15 @@ window.addEventListener('keydown', event => {
         console.log(key);
     }
 })
+//#endregion
+
+//#region digits
+//-----digit buttons-----//////////////////////////////
+const digitButtons = document.querySelectorAll('.digit');
+digitButtons.forEach(button => button.addEventListener('click', event => {
+    const num = event.target.textContent;
+    setDecider(num, operator.value, number1, number2); //decide which sets the number should go into.
+}));
 
 function setDecider(num, op, num1, num2) {
     //const num = e.target.textContent; //assign content to a local variable
@@ -122,7 +124,7 @@ function opDecider(newOp, op, num1, num2) {
 
 //#region equal
 //-----equal button-----//////////////////////////////
-const equalButton = document.getElementById('=');
+const equalButton = document.getElementById('equal');
 equalButton.addEventListener('click', event => {equal(event, operator, number1, number2);});
 
 function equal(e, op, num1, num2) {
@@ -133,6 +135,15 @@ function equal(e, op, num1, num2) {
     clearVar(e.target.textContent)
 }
 //#endregion
+
+const backspaceButton = document.getElementById('backspace');
+backspaceButton.addEventListener('click', event => function(){
+    //remove a digit from current input
+
+    number1 = number1.substring(0, number1.length - 1);
+    updateDisplay(display2, number1);
+})
+
 
 //#region clear
 //-----clear button-----//////////////////////////////
