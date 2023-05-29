@@ -34,6 +34,13 @@ BUTTONS BEHAVIVOR:
     else if !num1/!operator/!num2
     	add number to num1
     	update display2 with num1
+    *should always target display2
+    *reset display if last button was the equal button
     	
 MIGHT HAVE TO ADD A secondary tracker for edge case
     	
+-equal button
+    if num1/operator/num2
+    	run operate()
+    	update display
+    else num1/operate
