@@ -31,8 +31,8 @@ let number2 = '';    //hold a string of number
 let operator = '';   //hold a string of an operator
 //let result = '';     //hold a string of result
 let lastButton = ''; //hold a string of the last button pressed
-const display1 = document.querySelector('#upper');
-const display2 = document.querySelector('#lower');
+const display1 = document.getElementById('upper');
+const display2 = document.getElementById('lower');
 
 //-----digit buttons-----//////////////////////////////
 const digitButtons = document.querySelectorAll('.digit');
@@ -41,22 +41,21 @@ digitButtons.forEach(button => button.addEventListener('click', event => {
 }));
 
 function addNumber(e, op, num1, num2, lastBtn) {
-    let num = ''; //empty string to store the content and return
+    const val = e.target.textContent; //assign content to a local variable
     if (lastBtn === '') {
         if (num1 !== '' && op !== '') {
-            num = e.target.textContent; //add to number2
-            number2 += num;
+            const str = addToSet(number2, val);
         } else if (op === '') { 
-            num = e.target.textContent; //add to number1
-            number1 += num;
+            const str = addToSet(number1, val);
         }
     } else if (lastBtn === '=' || lastBtn === 'C') {
-        num = e.target.textContent; //add to number1
-        number1 = num;
+        const str = addToSet(number1, val); //add content to a specify set
     }
-    updateDisplay(display2, num); //reset display
+    updateDisplay(display2, str); //reset display
 }
-
+function addToSet(set, val) {
+    return set += val;
+}
 function updateDisplay(dis, val) {
     dis.textContent = val;
 }
@@ -74,7 +73,7 @@ function updateDisplay(dis, val) {
     updateDisplay(e.target.textContent); //add the digit directly to display
 })) */
 
-const equalButton = document.querySelector('#=');
+const equalButton = document.getElementById('=');
 equalButton.addEventListener('click', e => {
     const equation = `${number1} ${operator} ${number2}`; //num1/op/num2
     result = operate(operator, number1, number2);   //
@@ -106,7 +105,7 @@ function updateDisplay(num1) {
     display2.textContent += num1;
 };
  */
-const clearButton = document.querySelector('#clear');
+const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', clearScreen);
 function clearScreen() {
     display1.textContent = '';
