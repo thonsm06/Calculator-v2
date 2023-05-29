@@ -34,23 +34,33 @@ const display1 = document.querySelector('#upper');
 const display2 = document.querySelector('#lower');
 
 const digitButtons = document.querySelectorAll('.digit');
-digitButtons.forEach(button => button.addEventListener('click', e => {
-    if (number1 !== '' && operator !== '') {
+digitButtons.forEach(button => button.addEventListener('click', addNumber(operate)))
+digitButtons.forEach(button => button.addEventListener('click', (e) => {
+
+    /* if (number1 !== '' && operator !== '') {
         number2 += e.target.textContent;
         display2.textContent = number2;
     } else if (operator === '') {
         number1 += e.target.textContent;
         display2.textContent = number1;
-    }
-
-    console.log(number1);
-    console.log(operator);
-    console.log(number2);
-
+    } */
     //number1 += e.target.textContent;
     //updateDisplay(e.target.textContent); //add the digit directly to display
 }))
 
+function addNumber(op, num1, num2, op) {
+    if (num1 !== '' && op !== '') {
+        num2 += e.target.textContent;
+        display2.textContent = num2;
+    } else if (operator === '') {
+        number1 += e.target.textContent;
+        display2.textContent = num1;
+    }
+}
+
+function updateDisplay(dis, val) {
+    dis.textContent = val;
+}
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => button.addEventListener('click', e => {
 
@@ -76,8 +86,6 @@ function updateDisplay(num1) {
     display2.textContent += num1;
 };
 
-
-
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clearScreen);
 function clearScreen() {
@@ -87,3 +95,4 @@ function clearScreen() {
     number2 = '';
     operator = '';
 };
+
