@@ -39,7 +39,7 @@ let currentInput = {value: '1'}; //1v2 track which number set is being input
 const display1 = document.getElementById('upper');
 const display2 = document.getElementById('lower');
 //#endregion
-console.log(numbers[currentInput.value].value);
+
 //#region keyboard
 window.addEventListener('keydown', event => {
     const key = event.key;
@@ -55,7 +55,7 @@ window.addEventListener('keydown', event => {
     } else if (key.match("Escape")) {
     }
 
-    
+
 })
 //#endregion
 
@@ -169,7 +169,7 @@ allButtons.forEach(button => button.addEventListener('mouseenter', (event) => {
     event.target.style.cssText = "border: 2px solid black;";
 }))
 allButtons.forEach(button => button.addEventListener('mouseleave', (event) => {
-    event.target.style.cssText = "border: 1px solid grey546+;";
+    event.target.style.cssText = "border: 1px solid grey;";
 }))
 
 
