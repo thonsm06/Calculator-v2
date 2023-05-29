@@ -54,6 +54,8 @@ window.addEventListener('keydown', event => {
         equal(key, operator, numbers[0], numbers[1]);
     } else if (key.match("Escape")) {
     }
+
+    
 })
 //#endregion
 
@@ -111,6 +113,8 @@ function opDecider(newOp, op, num1, num2) {
         operator.value = newOp;
         str1 = n1 + newOp;
         str2 = '';
+    } else {
+        //str1 = 
     }
 
     updateDisplay(display1, str1);
@@ -126,8 +130,8 @@ equalButton.addEventListener('click', event => {equal(event, operator, numbers[0
 function equal(e, op, num1, num2) {
     const equation = `${num1.value} ${op.value} ${num2.value}`; //num1/op/num2
     result = operate(num1.value, op.value, num2.value);   //
-    updateDisplay(display1, equation);   
-    updateDisplay(display2, result); 
+    updateDisplay(display1, result);   
+    updateDisplay(display2, ''); 
     clearVar('Enter')
 }
 //#endregion
@@ -154,11 +158,20 @@ function clearScreen() {
 
 //set global variables to empty string, except for lastButton
 function clearVar(last){
-    numbers[0] = '';
-    numbers[1] = '';
+    numbers[0].value = '';
+    numbers[1].value = '';
     operator = '';
     lastButton = last;
 }
+
+const allButtons = document.querySelectorAll('button');
+allButtons.forEach(button => button.addEventListener('mouseenter', (event) => {
+    event.target.style.cssText = "border: 2px solid black;";
+}))
+allButtons.forEach(button => button.addEventListener('mouseleave', (event) => {
+    event.target.style.cssText = "border: 1px solid grey546+;";
+}))
+
 
 //history
 const historyContainer = document.createElement('div');
