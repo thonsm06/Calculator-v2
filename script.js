@@ -12,7 +12,7 @@ function divide(a, b) {
 }
 
 //runs when user hit = or enter
-function operate(operator, num1, num2) {
+function operate(num1, operator, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
     if (operator == '+'){
@@ -37,33 +37,74 @@ const display2 = document.getElementById('lower');
 //-----digit buttons-----//////////////////////////////
 const digitButtons = document.querySelectorAll('.digit');
 digitButtons.forEach(button => button.addEventListener('click', event => {
-    setDecider(event, operator.value, number1, number2, lastButton); //decide which sets the number should go into.
+    setDecider(event, operator.value, number1, number2); //decide which sets the number should go into.
 }));
 
 function setDecider(e, op, num1, num2) {
-
-    const val = e.target.textContent; //assign content to a local variable
-    let str = '';
+    const num = e.target.textContent; //assign content to a local variable
+    let str = ''; //temp var to store string for passing to display
+    
     if (num1.value !== '' && op !== '') {
-        str = addToSet(num2, val);
+        str = addToSet(num2, num);
     } else if (op === '') { 
-        str = addToSet(num1, val);
+        str = addToSet(num1, num);
     }
     
     updateDisplay(display2, str); //reset display
 }
-function addToSet(set, val) {return set.value += val;} //update global variable
-function updateDisplay(dis, val) {dis.textContent = val;} //update display's content
+function addToSet(set, num) {return set.value += num;} //update global variable, return a string to update display
+function updateDisplay(dis, str) {dis.textContent = str;} //update display's content
+
+//-----operator buttons-----//////////////////////////////
+const operatorButtons = document.querySelectorAll('.operator');
+operatorButtons.forEach(button => button.addEventListener('click', event => {
+    opDecider(event, operator.value, number1, number2)
+}));
+
+function opDecider(e, op, num1, num2) {
+    const newOp = e.target.textContent; //get the event's operator
+    const n1 = num1.value;           //store set 1 to local
+    const n2 = num2.value;           //store set 2 to local
+    let str1 = '';
+    let str2 = '';
+
+    if (n1 !== '' && op !== '' && n2 !== ''){
+        result = operate(n1, op, n2); //calculate equation
+        num1.value = result; //set number1 to new total
+        operator.value = newOp; //update global operator with the event op
+        str1 = result + newOp; 
+        str2 = n2;
+    } else if (n1 !== '' && op !== '' && n2 === '') {
+        operator.value = newOp;
+        str1 = n1 + newOp;
+    } else if (n1 !== '' && op === '' && n2 === '') {
+        operator.value = newOp;
+        str1 = n1 + newOp;
+        str2 = '';
+    }
+
+    updateDisplay(display1, str1);
+    updateDisplay(display2, str2);
+}
 
 //-----equal button-----//////////////////////////////
 const equalButton = document.getElementById('=');
 equalButton.addEventListener('click', e => {
     const equation = `${number1} ${operator} ${number2}`; //num1/op/num2
-    result = operate(operator, number1, number2);   //
+    result = operate(number1, operator, number2);   //
     updateDisplay(display1, equation);   
     updateDisplay(display2, result); 
     clearVar('=');
 });
+
+//-----clear button-----//////////////////////////////
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', clearScreen);
+function clearScreen() {
+    display1.textContent = '';
+    display2.textContent = '';
+    clearVar('C');
+};
 
 //set global variables to empty string, except for lastButton
 function clearVar(last){
@@ -73,34 +114,6 @@ function clearVar(last){
     lastButton = last;
 }
 
-const operatorButtons = document.querySelectorAll('.operator');
-operatorButtons.forEach(button => button.addEventListener('click', e => {
-    if (number1 !== '' && operator !== '' && number2 !== ''){
-        result = operate(operator, number1, number2);
-        number1 = result;
-        operator = e.target.textContent;
-        display1.textContent = number1 + operator;
-        display2.textContent = number2;
-    } else if (number1 !== '' && operator !== '' && number2 === '') {
-        operator = e.target.textContent;
-        display1.textContent = number1 + operator;
-    } else if (number1 !== '' && operator === '' && number2 === '') {
-        operator = e.target.textContent;
-        display1.textContent = number1 + operator;
-        display2.textContent = '';
-    }
-    //updateDisplay(e.target.textContent);
-}))
-
-const clearButton = document.getElementById('clear');
-clearButton.addEventListener('click', clearScreen);
-function clearScreen() {
-    display1.textContent = '';
-    display2.textContent = '';
-    clearVar('C');
-};
-
-
 //history
 const historyContainer = document.createElement('div');
 const display3 = document.createElement('div');
@@ -109,9 +122,6 @@ display3.classList.toggle('button');
 function history() {
 
 }
-
-
-
 
 
 /* digitButtons.forEach(button => button.addEventListener('click', (e) => {
