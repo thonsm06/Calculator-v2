@@ -28,8 +28,6 @@ function operate(num1, operator, num2) {
 }
 
 //#region variables declaration
-//let number1 = {value: ''};    //hold a string of number
-//let number2 = {value: ''};    //hold a string of number
 let numbers = [
     {value: ''},  
     {value: ''},
@@ -170,17 +168,3 @@ display3.classList.toggle('button');
 function history() {
 
 }
-
-
-/* digitButtons.forEach(button => button.addEventListener('click', (e) => {
-    if (number1 !== '' && operator !== '') {
-        number2 += e.target.textContent;
-        display2.textContent = number2;
-    } else if (operator === '') {
-        number1 += e.target.textContent;
-        display2.textContent = number1;
-    }
-    number1 += e.target.textContent;
-    updateDisplay(e.target.textContent); //add the digit directly to display
-}))
-*/
