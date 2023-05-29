@@ -41,11 +41,34 @@ const display2 = document.getElementById('lower');
 //-----digit buttons-----//////////////////////////////
 const digitButtons = document.querySelectorAll('.digit');
 digitButtons.forEach(button => button.addEventListener('click', event => {
-    setDecider(event, operator.value, number1, number2); //decide which sets the number should go into.
+    const num = event.target.textContent;
+    setDecider(num, operator.value, number1, number2); //decide which sets the number should go into.
 }));
+window.addEventListener('keydown', event => {
+    //get key/code
+    //if key is digit
+    //run setDecider
+    //if key is operator
+    //if key is other special
 
-function setDecider(e, op, num1, num2) {
-    const num = e.target.textContent; //assign content to a local variable
+    const key = event.key;
+    const reg = /^([-+/*]\d+(.\d+)?)*/;
+    const code = event.code;
+    
+    if (key.match(/[0-9]/)) {
+        setDecider(key, operator.value, number1, number2);
+    } else if (key.match(/[-+/*]/)) {
+        opDecider(key, operator.value, number1, number2);
+    } else if (key.match("Enter")) {
+        console.log(key);
+        equal(event, operator, number1, number2);
+    } else if (key.match("Escape")) {
+        console.log(key);
+    }
+})
+
+function setDecider(num, op, num1, num2) {
+    //const num = e.target.textContent; //assign content to a local variable
     let str = ''; //temp var to store string for passing to display
     
     if (num1.value !== '' && op !== '') {
@@ -65,11 +88,12 @@ function updateDisplay(dis, str) {dis.textContent = str;} //update display's con
 //-----operator buttons-----//////////////////////////////
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => button.addEventListener('click', event => {
-    opDecider(event, operator.value, number1, number2)
+    const newOp = event.target.textContent; //get the event's operator
+    opDecider(newOp, operator.value, number1, number2)
 }));
 
-function opDecider(e, op, num1, num2) {
-    const newOp = e.target.textContent; //get the event's operator
+function opDecider(newOp, op, num1, num2) {
+    //const newOp = e.target.textContent; //get the event's operator
     const n1 = num1.value;           //store set 1 to local
     const n2 = num2.value;           //store set 2 to local
     let str1 = '';
@@ -100,6 +124,7 @@ function opDecider(e, op, num1, num2) {
 //-----equal button-----//////////////////////////////
 const equalButton = document.getElementById('=');
 equalButton.addEventListener('click', event => {equal(event, operator, number1, number2);});
+
 function equal(e, op, num1, num2) {
     const equation = `${num1.value} ${op.value} ${num2.value}`; //num1/op/num2
     result = operate(num1.value, op.value, num2.value);   //
