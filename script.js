@@ -26,9 +26,9 @@ function operate(operator, num1, num2) {
     }
 }
 
-let number1 = '';    //hold a string of number
-let number2 = '';    //hold a string of number
-let operator = '';   //hold a string of an operator
+let number1 = {value: ''};    //hold a string of number
+let number2 = {value: ''};    //hold a string of number
+let operator = {value: ''};   //hold a string of an operator
 let result = '';     //hold a string of result, can be use for recall
 let lastButton = ''; //hold a string of the last button pressed
 const display1 = document.getElementById('upper');
@@ -40,19 +40,19 @@ digitButtons.forEach(button => button.addEventListener('click', event => {
     setDecider(event, operator, number1, lastButton); //decide which sets the number should go into.
 }));
 
-function setDecider(e, op, num1, lastBtn) {
-    
-    const val = e.target.textContent; //assign content to a local variable
+function setDecider(e, op, num1) {
 
-    if (num1 !== '' && op !== '') {
-        const str = addToSet(number2, val);
-    } else if (op === '') { 
-        const str = addToSet(number1, val);
+    const val = e.target.textContent; //assign content to a local variable
+    let str = '';
+    if (num1.value !== '' && op.value !== '') {
+        str = addToSet(number2, val);
+    } else if (op.value === '') { 
+        str = addToSet(number1, val);
     }
     
     updateDisplay(display2, str); //reset display
 }
-function addToSet(set, val) {set += val;} //update global variable
+function addToSet(set, val) {return set.value += val;} //update global variable
 function updateDisplay(dis, val) {dis.textContent = val;} //update display's content
 
 //-----equal button-----//////////////////////////////
