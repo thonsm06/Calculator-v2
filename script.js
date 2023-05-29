@@ -41,37 +41,19 @@ digitButtons.forEach(button => button.addEventListener('click', event => {
 }));
 
 function setDecider(e, op, num1, lastBtn) {
+    
     const val = e.target.textContent; //assign content to a local variable
-    if (lastBtn === '') {
-        if (num1 !== '' && op !== '') {
-            const str = addToSet(number2, val);
-        } else if (op === '') { 
-            const str = addToSet(number1, val);
-        }
-    } else if (lastBtn === '=' || lastBtn === 'C') {
-        const str = addToSet(number1, val); //add content to a specify set
+
+    if (num1 !== '' && op !== '') {
+        const str = addToSet(number2, val);
+    } else if (op === '') { 
+        const str = addToSet(number1, val);
     }
+    
     updateDisplay(display2, str); //reset display
 }
-function addToSet(set, val) {
-    return set += val;
-}
-function updateDisplay(dis, val) {
-    dis.textContent = val;
-}
-
-/* digitButtons.forEach(button => button.addEventListener('click', (e) => {
-
-    if (number1 !== '' && operator !== '') {
-        number2 += e.target.textContent;
-        display2.textContent = number2;
-    } else if (operator === '') {
-        number1 += e.target.textContent;
-        display2.textContent = number1;
-    }
-    number1 += e.target.textContent;
-    updateDisplay(e.target.textContent); //add the digit directly to display
-})) */
+function addToSet(set, val) {set += val;} //update global variable
+function updateDisplay(dis, val) {dis.textContent = val;} //update display's content
 
 //-----equal button-----//////////////////////////////
 const equalButton = document.getElementById('=');
@@ -80,10 +62,10 @@ equalButton.addEventListener('click', e => {
     result = operate(operator, number1, number2);   //
     updateDisplay(display1, equation);   
     updateDisplay(display2, result); 
-
     clearVar('=');
 });
 
+//set global variables to empty string, except for lastButton
 function clearVar(last){
     number1 = '';
     number2 = '';
@@ -109,11 +91,7 @@ operatorButtons.forEach(button => button.addEventListener('click', e => {
     }
     //updateDisplay(e.target.textContent);
 }))
-/* 
-function updateDisplay(num1) {
-    display2.textContent += num1;
-};
- */
+
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', clearScreen);
 function clearScreen() {
@@ -131,3 +109,19 @@ display3.classList.toggle('button');
 function history() {
 
 }
+
+
+
+
+
+/* digitButtons.forEach(button => button.addEventListener('click', (e) => {
+    if (number1 !== '' && operator !== '') {
+        number2 += e.target.textContent;
+        display2.textContent = number2;
+    } else if (operator === '') {
+        number1 += e.target.textContent;
+        display2.textContent = number1;
+    }
+    number1 += e.target.textContent;
+    updateDisplay(e.target.textContent); //add the digit directly to display
+})) */

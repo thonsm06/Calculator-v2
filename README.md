@@ -36,7 +36,7 @@ BUTTONS BEHAVIVOR:
     	update display2 with num1
     *should always target display2
     *reset display if last button was the equal button
-    	
+    *only care if number1 and operator has been assigned
 MIGHT HAVE TO ADD A secondary tracker for edge case
     	
 -equal button
