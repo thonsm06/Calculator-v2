@@ -28,11 +28,11 @@ function operate(num1, operator, num2) {
 }
 
 //#region variables declaration
-let number1 = {value: ''};    //hold a string of number
-let number2 = {value: ''};    //hold a string of number
+//let number1 = {value: ''};    //hold a string of number
+//let number2 = {value: ''};    //hold a string of number
 let numbers = [
-    {value: 'fggf'},  
-    {value: '3f3f'},
+    {value: ''},  
+    {value: ''},
 ];
 let operator = {value: ''};   //hold a string of an operator
 let result = '';     //hold a string of result, can be use for recall
@@ -49,14 +49,12 @@ window.addEventListener('keydown', event => {
     //const code = event.code;
     
     if (key.match(/[0-9]/)) {
-        setDecider(key, operator.value, number1, number2);
+        setDecider(key, operator.value, numbers[0], numbers[1]);
     } else if (key.match(/[-+/*]/)) {
-        opDecider(key, operator.value, number1, number2);
+        opDecider(key, operator.value, numbers[0], numbers[1]);
     } else if (key.match("Enter")) {
-        console.log(key);
-        equal(event, operator, number1, number2);
+        equal(key, operator, numbers[0], numbers[1]);
     } else if (key.match("Escape")) {
-        console.log(key);
     }
 })
 //#endregion
@@ -66,7 +64,7 @@ window.addEventListener('keydown', event => {
 const digitButtons = document.querySelectorAll('.digit');
 digitButtons.forEach(button => button.addEventListener('click', event => {
     const num = event.target.textContent;
-    setDecider(num, operator.value, number1, number2); //decide which sets the number should go into.
+    setDecider(num, operator.value, numbers[0], numbers[1]); //decide which sets the number should go into.
 }));
 
 function setDecider(num, op, num1, num2) {
@@ -91,7 +89,7 @@ function updateDisplay(dis, str) {dis.textContent = str;} //update display's con
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => button.addEventListener('click', event => {
     const newOp = event.target.textContent; //get the event's operator
-    opDecider(newOp, operator.value, number1, number2)
+    opDecider(newOp, operator.value, numbers[0], numbers[1])
 }));
 
 function opDecider(newOp, op, num1, num2) {
@@ -125,14 +123,14 @@ function opDecider(newOp, op, num1, num2) {
 //#region equal
 //-----equal button-----//////////////////////////////
 const equalButton = document.getElementById('equal');
-equalButton.addEventListener('click', event => {equal(event, operator, number1, number2);});
+equalButton.addEventListener('click', event => {equal(event, operator, numbers[0], numbers[1]);});
 
 function equal(e, op, num1, num2) {
     const equation = `${num1.value} ${op.value} ${num2.value}`; //num1/op/num2
     result = operate(num1.value, op.value, num2.value);   //
     updateDisplay(display1, equation);   
     updateDisplay(display2, result); 
-    clearVar(e.target.textContent)
+    clearVar('Enter')
 }
 //#endregion
 
@@ -140,8 +138,8 @@ const backspaceButton = document.getElementById('backspace');
 backspaceButton.addEventListener('click', event => function(){
     //remove a digit from current input
 
-    number1 = number1.substring(0, number1.length - 1);
-    updateDisplay(display2, number1);
+    //number1 = number1.substring(0, number1.length - 1);
+    //updateDisplay(display2, number1);
 })
 
 
@@ -158,8 +156,8 @@ function clearScreen() {
 
 //set global variables to empty string, except for lastButton
 function clearVar(last){
-    number1 = '';
-    number2 = '';
+    numbers[0] = '';
+    numbers[1] = '';
     operator = '';
     lastButton = last;
 }
