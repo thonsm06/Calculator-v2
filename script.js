@@ -1,3 +1,4 @@
+//#region basic math operation
 function add(a, b) {
     return a + b;
 }
@@ -10,8 +11,8 @@ function multiply(a, b) {
 function divide(a, b) {
     return a / b;
 }
+//#endregion
 
-//runs when user hit = or enter
 function operate(num1, operator, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
@@ -26,6 +27,7 @@ function operate(num1, operator, num2) {
     }
 }
 
+//#region variables declaration
 let number1 = {value: ''};    //hold a string of number
 let number2 = {value: ''};    //hold a string of number
 let operator = {value: ''};   //hold a string of an operator
@@ -33,7 +35,9 @@ let result = '';     //hold a string of result, can be use for recall
 let lastButton = ''; //hold a string of the last button pressed
 const display1 = document.getElementById('upper');
 const display2 = document.getElementById('lower');
+//#endregion
 
+//#region digits
 //-----digit buttons-----//////////////////////////////
 const digitButtons = document.querySelectorAll('.digit');
 digitButtons.forEach(button => button.addEventListener('click', event => {
@@ -52,9 +56,12 @@ function setDecider(e, op, num1, num2) {
     
     updateDisplay(display2, str); //reset display
 }
+//#endregion
+
 function addToSet(set, num) {return set.value += num;} //update global variable, return a string to update display
 function updateDisplay(dis, str) {dis.textContent = str;} //update display's content
 
+//#region operators
 //-----operator buttons-----//////////////////////////////
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => button.addEventListener('click', event => {
@@ -78,6 +85,7 @@ function opDecider(e, op, num1, num2) {
         operator.value = newOp;
         str1 = n1 + newOp;
     } else if (n1 !== '' && op === '' && n2 === '') {
+
         operator.value = newOp;
         str1 = n1 + newOp;
         str2 = '';
@@ -86,17 +94,22 @@ function opDecider(e, op, num1, num2) {
     updateDisplay(display1, str1);
     updateDisplay(display2, str2);
 }
+//#endregion
 
+//#region equal
 //-----equal button-----//////////////////////////////
 const equalButton = document.getElementById('=');
-equalButton.addEventListener('click', e => {
-    const equation = `${number1} ${operator} ${number2}`; //num1/op/num2
-    result = operate(number1, operator, number2);   //
+equalButton.addEventListener('click', event => {equal(event, operator, number1, number2);});
+function equal(e, op, num1, num2) {
+    const equation = `${num1.value} ${op.value} ${num2.value}`; //num1/op/num2
+    result = operate(num1.value, op.value, num2.value);   //
     updateDisplay(display1, equation);   
     updateDisplay(display2, result); 
-    clearVar('=');
-});
+    clearVar(e.target.textContent)
+}
+//#endregion
 
+//#region clear
 //-----clear button-----//////////////////////////////
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', clearScreen);
@@ -105,6 +118,7 @@ function clearScreen() {
     display2.textContent = '';
     clearVar('C');
 };
+//#endregion
 
 //set global variables to empty string, except for lastButton
 function clearVar(last){
@@ -134,4 +148,5 @@ function history() {
     }
     number1 += e.target.textContent;
     updateDisplay(e.target.textContent); //add the digit directly to display
-})) */
+}))
+*/
